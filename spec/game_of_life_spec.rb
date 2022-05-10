@@ -154,4 +154,94 @@ describe 'GameOfLife' do
       expect(@test_game.se_neighbor?(test_universe, @test_cell)).to eq(true)
     end
   end
+
+  describe 'neighbor counts' do
+    before do
+     @test_game = GameOfLife.new(3, 3)
+     @test_cell = Cell.new(1, 1)
+     @one_cell_universe = @test_game.set_live_cell([],  @test_cell)
+    end
+
+    it 'a cell with no neighbors has a neighbor count of zero' do
+      expect(@test_game.neighbor_count(@one_cell_universe, @test_cell)).to eq(0)
+    end 
+
+    it 'a cell with one neighbor has a neighbor count of one' do
+      test_universe = [Cell.new(0, 0)]
+
+      expect(@test_game.neighbor_count(test_universe, @test_cell)).to eq(1)
+    end
+
+    it 'a cell with two neighbors has a neighbor count of two' do
+      test_universe = [Cell.new(0, 0), Cell.new(1, 0)]
+
+      expect(@test_game.neighbor_count(test_universe, @test_cell)).to eq(2)
+    end
+
+    it 'a cell with three neighbors has a neighbor count of three' do
+      test_universe = [Cell.new(0, 0), Cell.new(1, 0), Cell.new(2, 0)]
+
+      expect(@test_game.neighbor_count(test_universe, @test_cell)).to eq(3)
+    end
+
+    it 'a cell with four neighbors has a neighbor count of four' do
+      test_universe = [Cell.new(0, 0), Cell.new(1, 0), Cell.new(2, 0), Cell.new(0, 1)]
+
+      expect(@test_game.neighbor_count(test_universe, @test_cell)).to eq(4)
+    end
+
+    it 'a cell with five neighbors has a neighbor count of five' do
+      test_universe = [
+        Cell.new(0, 0),
+        Cell.new(1, 0),
+        Cell.new(2, 0),
+        Cell.new(0, 1),
+        Cell.new(2, 1)
+      ]
+
+      expect(@test_game.neighbor_count(test_universe, @test_cell)).to eq(5)
+    end
+
+    it 'a cell with six neighbors has a neighbor count of six' do
+       test_universe = [
+        Cell.new(0, 0),
+        Cell.new(1, 0),
+        Cell.new(2, 0),
+        Cell.new(0, 1),
+        Cell.new(2, 1),
+        Cell.new(0, 2)
+      ]
+
+      expect(@test_game.neighbor_count(test_universe, @test_cell)).to eq(6)
+    end
+
+    it 'a cell with seven neighbors has a neighbor count of seven' do
+       test_universe = [
+        Cell.new(0, 0),
+        Cell.new(1, 0),
+        Cell.new(2, 0),
+        Cell.new(0, 1),
+        Cell.new(2, 1),
+        Cell.new(0, 2),
+        Cell.new(1, 2)
+      ]
+
+      expect(@test_game.neighbor_count(test_universe, @test_cell)).to eq(7)
+    end
+
+    it 'a cell with eight neighbors has a neighbor count of eight' do
+       test_universe = [
+        Cell.new(0, 0),
+        Cell.new(1, 0),
+        Cell.new(2, 0),
+        Cell.new(0, 1),
+        Cell.new(2, 1),
+        Cell.new(0, 2),
+        Cell.new(1, 2),
+        Cell.new(2, 2)
+      ]
+
+      expect(@test_game.neighbor_count(test_universe, @test_cell)).to eq(8)
+    end
+  end
 end

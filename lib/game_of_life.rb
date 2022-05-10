@@ -52,6 +52,14 @@ class GameOfLife
   def se_neighbor?(universe, cell)
     return universe_contains_neighbor(universe, se_neighbor(cell))
   end
+
+  def neighbor_count(universe, cell)
+    [ n_neighbor?(universe, cell), s_neighbor?(universe, cell),
+      e_neighbor?(universe, cell), w_neighbor?(universe, cell),
+      ne_neighbor?(universe, cell), nw_neighbor?(universe, cell),
+      se_neighbor?(universe, cell), sw_neighbor?(universe, cell)
+    ].count(true)
+  end
   
   private
 
