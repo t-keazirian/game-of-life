@@ -114,10 +114,41 @@ describe 'GameOfLife' do
           expect(result).to include(test_cell)
         end
       end
+    end
 
-      describe 'Any live cell with three live neighbours survives.' do
+    it 'Any live cell with three live neighbours survives.' do
+      100.times do
+        test_game = GameOfLife.new(3, 3)
+        test_cell = Cell.new(1, 1)
+        n1_cell = random_cell
+  
+        n2_cell = random_cell
+        while n2_cell == n1_cell
+          n2_cell = random_cell
+        end
+  
+        n3_cell = random_cell
+        while (n3_cell == n1_cell) or (n3_cell == n2_cell)
+          n3_cell = random_cell
+        end
+  
+        test_universe = [test_cell, n1_cell, n2_cell, n3_cell]
+  
+        result = test_game.tick(test_universe)
+  
+        expect(result).to include(test_cell)
       end
     end
+
+  end
+
+  private
+
+  def random_cell
+    x = (rand() * 3).to_i
+    y = (rand() * 3).to_i
+
+    Cell.new(x, y)
   end
 end
 
