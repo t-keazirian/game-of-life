@@ -32,7 +32,7 @@ describe 'a cell' do
     equality = cell_1_1 == cell_2_1
 
     expect(equality).to be(false)
-  end 
+  end
 
   it 'is not equal to another cell if their y coordinates are not equal' do
     cell_1_1 = Cell.new(1, 1)
@@ -41,7 +41,7 @@ describe 'a cell' do
     equality = cell_1_1 == cell_1_2
 
     expect(equality).to be(false)
-  end  
+  end
 
   it 'is not equal to another cell if their x and y coordinates are not equal' do
     cell_1_1 = Cell.new(1, 1)
@@ -50,7 +50,7 @@ describe 'a cell' do
     equality = cell_1_1 == cell_2_2
 
     expect(equality).to be(false)
-  end 
+  end
 
   describe 'neighbors' do
     before do
@@ -69,7 +69,7 @@ describe 'a cell' do
       expect(@test_cell.sw_neighbor?(@one_cell_universe)).to eq(false)
       expect(@test_cell.se_neighbor?(@one_cell_universe)).to eq(false)
     end
-  
+
     # north neighbor:
     #   0 1 2
     # 2 . N .
@@ -78,10 +78,10 @@ describe 'a cell' do
     it 'can determine if a cell has a neighbor to the north' do
       test_neighbor = Cell.new(1, 2)
       test_universe = @test_game.set_live_cell(@one_cell_universe, test_neighbor)
-  
+
       expect(@test_cell.n_neighbor?(test_universe)).to eq(true)
     end
-  
+
     # south neighbor:
     #   0 1 2
     # 2 . . .
@@ -90,10 +90,10 @@ describe 'a cell' do
     it 'can determine if a cell has a neighbor to the south' do
       test_neighbor = Cell.new(1, 0)
       test_universe = @test_game.set_live_cell(@one_cell_universe, test_neighbor)
-  
+
       expect(@test_cell.s_neighbor?(test_universe)).to eq(true)
     end
-  
+
     # east neighbor:
     #   0 1 2
     # 2 . . .
@@ -102,7 +102,7 @@ describe 'a cell' do
     it 'can determine if a cell has a neighbor to the east' do
       test_neighbor = Cell.new(2, 1)
       test_universe = @test_game.set_live_cell(@one_cell_universe, test_neighbor)
-  
+
       expect(@test_cell.e_neighbor?(test_universe)).to eq(true)
     end
 
@@ -114,9 +114,9 @@ describe 'a cell' do
     it 'can determine if a cell has a neighbor to the west' do
       test_neighbor = Cell.new(0, 1)
       test_universe = @test_game.set_live_cell(@one_cell_universe, test_neighbor)
-  
+
       expect(@test_cell.w_neighbor?(test_universe)).to eq(true)
-    end 
+    end
 
     # nw neighbor:
     #   0 1 2
@@ -126,9 +126,9 @@ describe 'a cell' do
     it 'can determine if a cell has a neighbor to the nw' do
       test_neighbor = Cell.new(0, 2)
       test_universe = @test_game.set_live_cell(@one_cell_universe, test_neighbor)
-  
+
       expect(@test_cell.nw_neighbor?(test_universe)).to eq(true)
-    end 
+    end
 
     # ne neighbor:
     #   0 1 2
@@ -138,9 +138,9 @@ describe 'a cell' do
     it 'can determine if a cell has a neighbor to the ne' do
       test_neighbor = Cell.new(2, 2)
       test_universe = @test_game.set_live_cell(@one_cell_universe, test_neighbor)
-  
+
       expect(@test_cell.ne_neighbor?(test_universe)).to eq(true)
-    end 
+    end
 
     # sw neighbor:
     #   0 1 2
@@ -150,7 +150,7 @@ describe 'a cell' do
     it 'can determine if a cell has a neighbor to the sw' do
       test_neighbor = Cell.new(0, 0)
       test_universe = @test_game.set_live_cell(@one_cell_universe, test_neighbor)
-  
+
       expect(@test_cell.sw_neighbor?(test_universe)).to eq(true)
     end
 
@@ -163,7 +163,7 @@ describe 'a cell' do
     it 'can determine if a cell has a neighbor to the se' do
       test_neighbor = Cell.new(2, 0)
       test_universe = @test_game.set_live_cell(@one_cell_universe, test_neighbor)
-  
+
       expect(@test_cell.se_neighbor?(test_universe)).to eq(true)
     end
   end
@@ -177,7 +177,7 @@ describe 'a cell' do
 
     it 'a cell with no neighbors has a neighbor count of zero' do
       expect(@test_cell.neighbor_count(@one_cell_universe)).to eq(0)
-    end 
+    end
 
     it 'a cell with one neighbor has a neighbor count of one' do
       test_universe = [Cell.new(0, 0)]
@@ -257,6 +257,5 @@ describe 'a cell' do
       expect(@test_cell.neighbor_count(test_universe)).to eq(8)
     end
   end
-
-
 end
+

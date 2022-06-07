@@ -38,4 +38,86 @@ describe 'GameOfLife' do
 
     expect(actual_live_cell_count).to eq(expected_live_cell_count)
   end
+
+  describe 'Rules' do
+    describe "Any live cell with fewer than two live neighbors dies" do
+        it "A cell with no neighbors dies" do
+          test_game = GameOfLife.new(3, 3)
+          test_cell = Cell.new(1, 1)
+          test_universe = [test_cell]
+
+          result = test_game.tick(test_universe)
+
+          expect(result).not_to include(test_cell)
+        end
+
+        [
+            ["SW", Cell.new(0, 0)],
+            ["S", Cell.new(1, 0)],
+            ["SE", Cell.new(2, 0)],
+            ["E", Cell.new(2, 1)],
+            ["NE", Cell.new(2, 2)],
+            ["N", Cell.new(1, 2)],
+            ["NW", Cell.new(0, 2)],
+            ["W", Cell.new(0, 1)]
+        ].each do |n1_name, n1_cell|
+            it "A cell with one #{n1_name} neighbor dies" do
+            test_game = GameOfLife.new(3, 3)
+            test_cell = Cell.new(1, 1)
+            test_universe = [test_cell, n1_cell]
+
+            result = test_game.tick(test_universe)
+
+            expect(result).not_to include(test_cell)
+            end
+        end
+    end
+
+    describe 'Any live cell with two live neighbours survives.' do
+      [
+        ["N", Cell.new(1, 2), "S", Cell.new(1, 0)],
+        ["N", Cell.new(1, 2), "E", Cell.new(2, 1)],
+        ["N", Cell.new(1, 2), "W", Cell.new(0, 1)],
+        ["N", Cell.new(1, 2), "NE", Cell.new(2, 2)],
+        ["N", Cell.new(1, 2), "NW", Cell.new(0, 2)],
+        ["N", Cell.new(1, 2), "SE", Cell.new(2, 0)],
+        ["N", Cell.new(1, 2), "SW", Cell.new(0, 0)],
+        ["S", Cell.new(1, 0), "E", Cell.new(2, 1)],
+        ["S", Cell.new(1, 0), "W", Cell.new(0, 1)],
+        ["S", Cell.new(1, 0), "NE", Cell.new(2, 2)],
+        ["S", Cell.new(1, 0), "NW", Cell.new(0, 2)],
+        ["S", Cell.new(1, 0), "SE", Cell.new(2, 0)],
+        ["S", Cell.new(1, 0), "SW", Cell.new(0, 0)],
+        ["E", Cell.new(2, 1), "W", Cell.new(0, 1)],
+        ["E", Cell.new(2, 1), "NE", Cell.new(2, 2)],
+        ["E", Cell.new(2, 1), "NW", Cell.new(0, 2)],
+        ["E", Cell.new(2, 1), "SE", Cell.new(2, 0)],
+        ["E", Cell.new(2, 1), "SW", Cell.new(0, 0)],
+        ["W", Cell.new(0, 1), "NE", Cell.new(2, 2)],
+        ["W", Cell.new(0, 1), "NW", Cell.new(0, 2)],
+        ["W", Cell.new(0, 1), "SE", Cell.new(2, 0)],
+        ["W", Cell.new(0, 1), "SW", Cell.new(0, 0)],
+        ["NE", Cell.new(2, 2), "NW", Cell.new(0, 2)],
+        ["NE", Cell.new(2, 2), "SE", Cell.new(2, 0)],
+        ["NE", Cell.new(2, 2), "SW", Cell.new(0, 0)],
+        ["NW", Cell.new(0, 2), "SE", Cell.new(2, 0)],
+        ["NW", Cell.new(0, 2), "SW", Cell.new(0, 0)],
+        ["SE", Cell.new(2, 0), "SW", Cell.new(0, 0)]
+      ].each do |n1_name, n1_cell, n2_name, n2_cell|
+        it "live cell with neighbors #{n1_name} and #{n2_name} survives" do
+          test_game = GameOfLife.new(3, 3)
+          test_cell = Cell.new(1, 1)
+          test_universe = [test_cell, n1_cell, n2_cell]
+
+          result = test_game.tick(test_universe)
+
+          expect(result).to include(test_cell)
+        end
+      end
+
+      describe 'Any live cell with three live neighbours survives.' do
+      end
+    end
+  end
 end
+

@@ -8,8 +8,12 @@ class Cell
     @y = y
   end
 
-  def == other 
+  def == other
     x == other.x && y == other.y
+  end
+
+  def to_s
+    "(#{x}, #{y})"
   end
 
   def neighbor_count(universe)
@@ -62,3 +66,4 @@ class Cell
     return false
   end
 end
+
