@@ -24,11 +24,12 @@ class GameOfLife
     new_universe = []
 
     universe.each do |cell|
-        if cell.neighbor_count(universe) < 2
-            # cell DIES
-        else
-            new_universe << cell
-        end
+      neighbor_count = cell.neighbor_count(universe)
+      if neighbor_count < 2 or neighbor_count > 3
+          # cell DIES
+      else
+          new_universe << cell
+      end
     end
     
     return new_universe

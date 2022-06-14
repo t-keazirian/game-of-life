@@ -120,26 +120,34 @@ describe 'GameOfLife' do
       100.times do
         test_game = GameOfLife.new(3, 3)
         test_cell = Cell.new(1, 1)
-        n1_cell = random_cell
-  
-        n2_cell = random_cell
-        while n2_cell == n1_cell
-          n2_cell = random_cell
-        end
-  
-        n3_cell = random_cell
-        while (n3_cell == n1_cell) or (n3_cell == n2_cell)
-          n3_cell = random_cell
-        end
-  
-        test_universe = [test_cell, n1_cell, n2_cell, n3_cell]
-  
+        test_universe = [test_cell]
+
+        test_universe << get_random_neighbor(test_universe)
+        test_universe << get_random_neighbor(test_universe)
+        test_universe << get_random_neighbor(test_universe)
+
         result = test_game.tick(test_universe)
   
         expect(result).to include(test_cell)
       end
     end
 
+    it 'Any live cell with more than three live neighbours dies.' do
+      100.times do
+        test_game = GameOfLife.new(3, 3)
+        test_cell = Cell.new(1, 1)
+        test_universe = [test_cell]
+
+        test_universe << get_random_neighbor(test_universe)
+        test_universe << get_random_neighbor(test_universe)
+        test_universe << get_random_neighbor(test_universe)
+        test_universe << get_random_neighbor(test_universe)
+  
+        result = test_game.tick(test_universe)
+  
+        expect(result).not_to include(test_cell)
+      end
+    end
   end
 
   private
@@ -150,5 +158,13 @@ describe 'GameOfLife' do
 
     Cell.new(x, y)
   end
-end
 
+  def get_random_neighbor(test_universe)
+    new_cell = random_cell
+    while test_universe.include?(new_cell)
+        new_cell = random_cell
+    end
+
+    new_cell
+  end
+end
