@@ -1,4 +1,3 @@
-
 class GameOfLife
   attr_accessor :width, :height
 
@@ -39,4 +38,3 @@ class GameOfLife
     return new_universe
   end
 end
-
