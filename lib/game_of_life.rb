@@ -23,12 +23,16 @@ class GameOfLife
   def tick(universe)
     new_universe = []
 
-    universe.each do |cell|
-      neighbor_count = cell.neighbor_count(universe)
-      if neighbor_count < 2 or neighbor_count > 3
-          # cell DIES
-      else
-          new_universe << cell
+    (0..width).each do |x|
+      (0..height).each do |y|
+        cell = Cell.new(x, y)
+        neighbor_count = cell.neighbor_count(universe)
+        if neighbor_count == 3
+            new_universe << cell
+        end
+        if neighbor_count == 2 and universe.include?(cell)
+            new_universe << cell
+        end 
       end
     end
     

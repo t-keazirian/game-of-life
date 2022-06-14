@@ -120,11 +120,11 @@ describe 'GameOfLife' do
       100.times do
         test_game = GameOfLife.new(3, 3)
         test_cell = Cell.new(1, 1)
+        
         test_universe = [test_cell]
-
-        test_universe << get_random_neighbor(test_universe)
-        test_universe << get_random_neighbor(test_universe)
-        test_universe << get_random_neighbor(test_universe)
+        test_universe << get_random_neighbor(test_cell, test_universe)
+        test_universe << get_random_neighbor(test_cell, test_universe)
+        test_universe << get_random_neighbor(test_cell, test_universe)
 
         result = test_game.tick(test_universe)
   
@@ -136,17 +136,69 @@ describe 'GameOfLife' do
       100.times do
         test_game = GameOfLife.new(3, 3)
         test_cell = Cell.new(1, 1)
-        test_universe = [test_cell]
 
-        test_universe << get_random_neighbor(test_universe)
-        test_universe << get_random_neighbor(test_universe)
-        test_universe << get_random_neighbor(test_universe)
-        test_universe << get_random_neighbor(test_universe)
+        test_universe = [test_cell]
+        test_universe << get_random_neighbor(test_cell, test_universe)
+        test_universe << get_random_neighbor(test_cell, test_universe)
+        test_universe << get_random_neighbor(test_cell, test_universe)
+        test_universe << get_random_neighbor(test_cell, test_universe)
   
         result = test_game.tick(test_universe)
   
         expect(result).not_to include(test_cell)
       end
+    end
+
+    describe 'Any dead cell with three live neighbours becomes alive.' do
+      it 'Any dead cell with less than three live neighbours does not come alive.' do
+        100.times do
+          test_game = GameOfLife.new(3, 3)
+          test_cell = Cell.new(1, 1)
+
+          test_universe = []
+          test_universe << get_random_neighbor(test_cell, test_universe)
+          test_universe << get_random_neighbor(test_cell, test_universe)
+
+          result = test_game.tick(test_universe)
+  
+          expect(result).not_to include(test_cell)
+        end
+      end
+
+      it 'Any dead cell with exactly three live neighbours becomes alive.' do
+        100.times do
+          test_game = GameOfLife.new(3, 3)
+          test_cell = Cell.new(1, 1)
+
+          test_universe = []
+          test_universe << get_random_neighbor(test_cell, test_universe)
+          test_universe << get_random_neighbor(test_cell, test_universe)
+          test_universe << get_random_neighbor(test_cell, test_universe)
+
+          result = test_game.tick(test_universe)
+  
+          expect(result).to include(test_cell)
+        end
+      end
+
+      it 'Any dead cell with more than three live neighbours does not come alive.' do
+        100.times do
+          test_game = GameOfLife.new(3, 3)
+          test_cell = Cell.new(1, 1)
+
+          test_universe = []
+          test_universe << get_random_neighbor(test_cell, test_universe)
+          test_universe << get_random_neighbor(test_cell, test_universe)
+          test_universe << get_random_neighbor(test_cell, test_universe)
+          test_universe << get_random_neighbor(test_cell, test_universe)
+
+          result = test_game.tick(test_universe)
+  
+          expect(result).not_to include(test_cell)
+        end
+      end
+
+
     end
   end
 
@@ -159,9 +211,9 @@ describe 'GameOfLife' do
     Cell.new(x, y)
   end
 
-  def get_random_neighbor(test_universe)
+  def get_random_neighbor(cell, test_universe)
     new_cell = random_cell
-    while test_universe.include?(new_cell)
+    while test_universe.include?(new_cell) or new_cell == cell
         new_cell = random_cell
     end
 
