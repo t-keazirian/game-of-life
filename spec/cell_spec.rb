@@ -185,7 +185,7 @@ describe 'a cell' do
       expect(@test_cell.neighbor_count(test_universe)).to eq(1)
     end
 
-    it 'a cell with two neighbors has a neighbor count of two' do
+    it 'a cell with one neighbor has a neighbor count of two' do
       test_universe = [Cell.new(0, 0), Cell.new(1, 0)]
 
       expect(@test_cell.neighbor_count(test_universe)).to eq(2)
