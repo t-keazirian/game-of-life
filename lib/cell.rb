@@ -1,69 +1,59 @@
 OFFSET = 1
 
 class Cell
-  attr_accessor :x, :y
-
-  def initialize(x, y)
-    @x = x
-    @y = y
+  def self.alive 
+    1
   end
 
-  def == other
-    x == other.x && y == other.y
+  def self.dead
+    0
   end
 
-  def to_s
-    "(#{x}, #{y})"
-  end
-
-  def neighbor_count(universe)
-    [ n_neighbor?(universe), s_neighbor?(universe),
-      e_neighbor?(universe), w_neighbor?(universe),
-      ne_neighbor?(universe), nw_neighbor?(universe),
-      se_neighbor?(universe), sw_neighbor?(universe)
+  def self.neighbor_count(universe, row, spot)
+    [ n_neighbor?(universe, row, spot), s_neighbor?(universe, row, spot),
+      e_neighbor?(universe, row, spot), w_neighbor?(universe, row, spot),
+      ne_neighbor?(universe, row, spot), nw_neighbor?(universe, row, spot),
+      se_neighbor?(universe, row, spot), sw_neighbor?(universe, row, spot)
     ].count(true)
   end
 
-  def n_neighbor?(universe)
-    return universe_contains_neighbor(universe, Cell.new(@x, @y + OFFSET))
+  def self.n_neighbor?(universe, row, spot)
+    return false if row - OFFSET < 0
+    return universe[row - OFFSET][spot] == alive
   end
 
-  def s_neighbor?(universe)
-    return universe_contains_neighbor(universe, Cell.new(@x, @y - OFFSET))
+  def self.s_neighbor?(universe, row, spot)
+    return false if row + OFFSET == universe.size
+    return universe[row + OFFSET][spot] == alive
   end
 
-  def e_neighbor?(universe)
-    return universe_contains_neighbor(universe, Cell.new(@x + OFFSET, @y))
+  def self.e_neighbor?(universe, row, spot)
+    return false if spot + OFFSET == universe[row].size
+    return universe[row][spot + OFFSET] == alive
   end
 
-  def w_neighbor?(universe)
-    return universe_contains_neighbor(universe,  Cell.new(@x - OFFSET, @y))
+  def self.w_neighbor?(universe, row, spot)
+    return false if spot - OFFSET < 0
+    return universe[row][spot - OFFSET] == alive
   end
 
-  def nw_neighbor?(universe)
-    return universe_contains_neighbor(universe, Cell.new(@x - OFFSET, @y + OFFSET))
+  def self.nw_neighbor?(universe, row, spot)
+    return false if (row - OFFSET < 0) || (spot - OFFSET < 0)
+    return universe[row - OFFSET][spot - OFFSET] == alive
   end
 
-  def ne_neighbor?(universe)
-    return universe_contains_neighbor(universe, Cell.new(@x + OFFSET, @y + OFFSET))
+  def self.ne_neighbor?(universe, row, spot)
+    return false if (row - OFFSET < 0) || (spot + OFFSET == universe[row].size)
+    return universe[row - OFFSET][spot + OFFSET] == alive
   end
 
-  def sw_neighbor?(universe)
-    return universe_contains_neighbor(universe, Cell.new(@x - OFFSET, @y - OFFSET))
+  def self.se_neighbor?(universe, row, spot)
+    return false if (row + OFFSET == universe.size) || (spot + OFFSET == universe[row].size)
+    return universe[row + OFFSET][spot + OFFSET] == alive
   end
 
-  def se_neighbor?(universe)
-    return universe_contains_neighbor(universe, Cell.new(@x + OFFSET, @y - OFFSET))
-  end
-
-  private
-
-  def universe_contains_neighbor(universe, neighbor_cell)
-    universe.each do |live_cell|
-      return true if live_cell == neighbor_cell
-    end
-
-    return false
+  def self.sw_neighbor?(universe, row, spot)
+    return false if (row + OFFSET == universe.size) || (spot - OFFSET < 0)
+    return universe[row + OFFSET][spot - OFFSET] == alive
   end
 end
-
