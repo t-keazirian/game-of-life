@@ -209,5 +209,23 @@ describe 'new cell' do
 
       expect(NewCell.neighbor_count(test_universe, 1, 1)).to eq(8)
     end
+
+    it 'neighbors off the map are considered DEAD' do
+      test_universe =
+        [
+          [1, 1, 1],
+          [1, 1, 1],
+          [1, 1, 1]
+        ]
+
+      expect(NewCell.neighbor_count(test_universe, 0, 0)).to eq(3)
+      expect(NewCell.neighbor_count(test_universe, 0, 1)).to eq(5)
+      expect(NewCell.neighbor_count(test_universe, 0, 2)).to eq(3)
+      expect(NewCell.neighbor_count(test_universe, 1, 0)).to eq(5)
+      expect(NewCell.neighbor_count(test_universe, 1, 2)).to eq(5)
+      expect(NewCell.neighbor_count(test_universe, 2, 0)).to eq(3)
+      expect(NewCell.neighbor_count(test_universe, 2, 1)).to eq(5)
+      expect(NewCell.neighbor_count(test_universe, 2, 2)).to eq(3)
+    end
   end 
 end

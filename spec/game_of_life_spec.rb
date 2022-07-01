@@ -1,5 +1,9 @@
 require 'rspec'
 require_relative '../lib/game_of_life.rb'
+require_relative '../lib/cell.rb'
+
+ALIVE = 1
+DEAD = 0
 
 describe 'GameOfLife' do
   [
@@ -49,6 +53,19 @@ describe 'GameOfLife' do
           result = test_game.tick(test_universe)
 
           expect(result).not_to include(test_cell)
+
+          ### new_tick
+
+          test_universe =
+            [
+              [0, 0, 0],
+              [0, 1, 0],
+              [0, 0, 0]
+            ]
+
+          result = GameOfLife.new_tick(test_universe)
+
+          expect(result[1][1]).to eq(DEAD)
         end
 
         [
