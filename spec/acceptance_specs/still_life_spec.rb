@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative '../lib/game_of_life.rb'
+require_relative '../../lib/game_of_life.rb'
 
 describe 'still lifes' do
     it 'block' do
