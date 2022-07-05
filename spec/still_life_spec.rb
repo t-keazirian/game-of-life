@@ -24,7 +24,117 @@ describe 'still lifes' do
         [0, 0, 1, 1, 0, 0],
         [0, 1, 0, 0, 1, 0],
         [0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ]
+
+      result = GameOfLife.tick(test_universe)
+      expect(result).to eq(test_universe)
+
+      100.times do
+        result = GameOfLife.tick(result)
+      end
+      expect(result).to eq(test_universe)
+    end
+
+    it 'Loaf' do
+      test_universe = [
         [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 1, 0, 0, 1, 0],
+        [0, 0, 1, 0, 1, 0],
+        [0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ]
+
+      result = GameOfLife.tick(test_universe)
+      expect(result).to eq(test_universe)
+
+      100.times do
+        result = GameOfLife.tick(result)
+      end
+      expect(result).to eq(test_universe)
+    end
+
+    it 'Boat' do
+      test_universe = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0]
+      ]
+
+      result = GameOfLife.tick(test_universe)
+      expect(result).to eq(test_universe)
+
+      100.times do
+        result = GameOfLife.tick(result)
+      end
+      expect(result).to eq(test_universe)
+    end
+
+    it 'Tub' do
+      test_universe = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0]
+      ]
+
+      result = GameOfLife.tick(test_universe)
+      expect(result).to eq(test_universe)
+
+      100.times do
+        result = GameOfLife.tick(result)
+      end
+      expect(result).to eq(test_universe)
+    end
+
+    it 'Loaf' do
+      test_universe = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 1, 0, 0, 1, 0],
+        [0, 0, 1, 0, 1, 0],
+        [0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ]
+
+      result = GameOfLife.tick(test_universe)
+      expect(result).to eq(test_universe)
+
+      100.times do
+        result = GameOfLife.tick(result)
+      end
+      expect(result).to eq(test_universe)
+    end
+
+    it 'Boat' do
+      test_universe = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0],
+      ]
+
+      result = GameOfLife.tick(test_universe)
+      expect(result).to eq(test_universe)
+
+      100.times do
+        result = GameOfLife.tick(result)
+      end
+      expect(result).to eq(test_universe)
+    end
+
+    it 'Tub' do
+      test_universe = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0],
       ]
 
       result = GameOfLife.tick(test_universe)
